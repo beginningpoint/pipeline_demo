@@ -1,0 +1,29 @@
+name: Cangjie CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Cangjie SDK
+        run: |
+          # 从官方渠道下载 Linux x64 版本的 SDK
+          # 请将下面链接中的版本号替换为实际版本
+          wget https://cangjie-lang.cn/download/1.0.5/cangjie-sdk-linux-x64-1.0.5.tar.gz -O /tmp/cangjie-sdk.tar.gz
+          mkdir -p /opt/cangjie
+          tar -xzf /tmp/cangjie-sdk.tar.gz -C /opt/cangjie --strip-components=1
+          echo "/opt/cangjie/bin" >> $GITHUB_PATH
+          echo "/opt/cangjie/tools/bin" >> $GITHUB_PATH
+
+      - name: Verify installation
+        run: cjpm --version
+
+      - name: Run tests
+        run: cjpm test
