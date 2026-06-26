@@ -1,0 +1,13 @@
+[package]
+  cjc-version = "1.0.5"
+  name = "my_first_cj_project"
+  description = "nothing here"
+  version = "1.0.0"
+  target-dir = ""
+  output-type = "executable"
+  compile-option = ""
+  override-compile-option = ""
+  link-option = ""
+  package-configuration = {}
+
+[dependencies]

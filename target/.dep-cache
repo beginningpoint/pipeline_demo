@@ -1,0 +1,16 @@
+{
+  "bin": {},
+  "pkg-build": {},
+  "pkg-test": {
+    "D:\\my_first_cj_project\\src": {
+      "package": "my_first_cj_project",
+      "isMacro": false,
+      "accessLevel": "public",
+      "timeStamp": 1782490899,
+      "dependencies": [],
+      "std-dependencies": [],
+      "testUsed": false,
+      "mockUsed": false
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "packageInformation": {
+    "my_first_cj_project": {
+      "rootPackageName": "my_first_cj_project",
+      "fileNameHash": "9212494319978101843",
+      "timeStamp": 1782491008,
+      "isBuilt": true,
+      "exeName": "main",
+      "hasSubPkgs": true
+    }
+  },
+  "jsonHash": "-1358349946374985387",
+  "rootPackageName": "my_first_cj_project"
+}
