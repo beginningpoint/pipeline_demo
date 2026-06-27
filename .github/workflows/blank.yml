@@ -9,21 +9,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - name: Install Cangjie SDK
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Cangjie SDK from repo
         run: |
-          # 从官方渠道下载 Linux x64 版本的 SDK
-          # 请将下面链接中的版本号替换为实际版本
-          wget https://cangjie-lang.cn/download/1.0.5/cangjie-sdk-linux-x64-1.0.5.tar.gz -O /tmp/cangjie-sdk.tar.gz
+          # 假设 SDK 包放在仓库根目录的 sdk/ 文件夹下
           mkdir -p /opt/cangjie
-          tar -xzf /tmp/cangjie-sdk.tar.gz -C /opt/cangjie --strip-components=1
+          tar -xzf sdk/cangjie-sdk-linux-x64-1.0.5.tar.gz -C /opt/cangjie --strip-components=1
           echo "/opt/cangjie/bin" >> $GITHUB_PATH
           echo "/opt/cangjie/tools/bin" >> $GITHUB_PATH
 
       - name: Verify installation
         run: cjpm --version
 
-      - name: Run tests
+      - name: Run unit tests
         run: cjpm test
