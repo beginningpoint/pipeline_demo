@@ -1,29 +1,29 @@
-name: Cangjie CI
+name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Cangjie SDK from repo
+      - name: Setup CangJie SDK
         run: |
-          # 假设 SDK 包放在仓库根目录的 sdk/ 文件夹下
-          mkdir -p /opt/cangjie
-          tar -xzf sdk/cangjie-sdk-linux-x64-1.0.5.tar.gz -C /opt/cangjie --strip-components=1
-          echo "/opt/cangjie/bin" >> $GITHUB_PATH
-          echo "/opt/cangjie/tools/bin" >> $GITHUB_PATH
+          curl -fsSL "https://cangjie-lang.cn/v1/files/auth/downLoad?nsId=142267&fileName=cangjie-sdk-linux-x64-1.1.3.tar.gz&objectKey=6a19349d21f5a8178d6fd22b" | tar xz
+          SDK_DIR=$(ls -d */ 2>/dev/null | head -1)
+          echo "CANGJIE_HOME=$PWD/$SDK_DIR" >> $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=$PWD/$(find "$SDK_DIR" -name "libcangjie-runtime.so" -exec dirname {} \; -quit)" >> $GITHUB_ENV
+          echo "$PWD/$SDK_DIR/bin" >> $GITHUB_PATH
+          echo "$PWD/$SDK_DIR/tools/bin" >> $GITHUB_PATH
 
-      - name: Verify installation
-        run: cjpm --version
+      - name: Build
+        run: cjpm build
 
-      - name: Run unit tests
+      - name: Test
         run: cjpm test
